@@ -33,7 +33,7 @@ class OffsetProbe:
     self.lift_speed = config.getfloat('lift_speed', self.speed, above=0.)
     self.lift_distance = config.getfloat('lift_distance', 0.5, above=0.)
     # X/Y move speeds
-    self.move_speed = config.getfloat('speed', 100.0, above=0.)
+    self.move_speed = config.getfloat('move_speed', 100.0, above=0.)
 
     # Gcode-based moves, this moves the toolhead relative to the tool offsets
     self.gcode_move = self.printer.load_object(config, "gcode_move")
@@ -144,7 +144,7 @@ class OffsetProbe:
     coord[0] += offset_x
     coord[1] += offset_y
 
-    toolhead.manual_move(coord, self.speed)
+    toolhead.manual_move(coord, self.move_speed)
 
     base_z = self._accurate_probe(self.speed, True)
     self._lift_between_probes()
@@ -160,7 +160,7 @@ class OffsetProbe:
       coord = [i for i in self._get_gcode_position(x=self.probe_x, y=self.probe_y, z=curr_pos[2])] + curr_pos[3:]
 
       # Move to the absolute probe point
-      toolhead.manual_move(coord, self.speed)
+      toolhead.manual_move(coord, self.move_speed)
       # Probe and get the new offset
       z = self._accurate_probe(self.speed)
       offsets.append(z - base_z)

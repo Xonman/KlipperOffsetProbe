@@ -6,7 +6,7 @@ If you have a toolchanger or IDEX printer you probably find yourself having to m
 This script will cycle through each tool and probe the nozzle on a hardware probe somewhere on the printer and report the difference between the nozzle and the standard Z limit switch for each tool.
 
 ## How's it work?
-When `OFFSET_PROBE` is called on the printer the script will:
+When `offset_probe` is called on the printer the script will:
 - Home the Z limit switch on top of the probe to get a Z0 location
 - Check the config for a toolchange command named `toolchange_gcode_<tool number>` where tool number is between 0 and 99
 - Executes the specified ttolchange Gcode, then moves to (`probe_x`, `probe_y`) and performs a probe using the custom probe specified by `pin` config
@@ -18,6 +18,7 @@ Since toolchanging has no standardised approach in the Klipper world this is an 
 ## Config example
 
 ```yaml
+[offset_probe]
 # Define the pin that the extra probe is connected to
 pin: ^PC16
 # X,Y coordinates to probe - these should be the native coordinates before any offsets are applied

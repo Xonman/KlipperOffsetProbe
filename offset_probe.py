@@ -14,7 +14,6 @@ class OffsetProbe:
     self.name = config.get_name()
     self.mcu_probe = mcu_probe
 
-
     self.probe_x = config.getfloat('probe_x', 0.)
     self.probe_y = config.getfloat('probe_y', 0.)
 
@@ -23,6 +22,8 @@ class OffsetProbe:
     self.y_offset = config.getfloat('y_offset', 0.)
     # The trigger distance of the probe, the plunge height of a switch based probe
     self.z_offset = config.getfloat('z_offset', 0.)
+
+    self.switch_offset = config.getfloat('switch_offset', 0.)
 
     # The starting Z height when probing tools - all tools must be accurate to within this value
     self.tool_probe_z = config.getfloat('reprobe_height', 1., above=0.)
@@ -163,7 +164,7 @@ class OffsetProbe:
       toolhead.manual_move(coord, self.move_speed)
       # Probe and get the new offset
       z = self._accurate_probe(self.speed)
-      offsets.append(z - base_z)
+      offsets.append(z - base_z + self.switch_offset)
       # gcmd.respond_info('Tool %d: %.6f' % (i, z))
       self._lift_between_probes()
     

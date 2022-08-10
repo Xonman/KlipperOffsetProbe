@@ -18,6 +18,7 @@ Since toolchanging has no standardised approach in the Klipper world this is an 
 ## Config example
 
 ```yaml
+[offset_probe]
 # Define the pin that the extra probe is connected to
 pin: ^PC16
 # X,Y coordinates to probe - these should be the native coordinates before any offsets are applied
@@ -25,6 +26,9 @@ probe_x: 150
 probe_y: 150
 # Z offset of the Z limit switch, which will be added to the calculated offset
 z_offset: 0
+# Additional offset added to each determined tool offset to account for micro switch pre-travel
+# e.g. when using a removable hardware probe that utilises a micro switch to trigger
+switch_offset: 0
 # The speed (in mm/sec) to move tools down onto the probe
 speed: 5
 # The speed (in mm/sec) to retract between probes
